@@ -15,7 +15,7 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "discord.js": "github:discordjs/discord.js#fe7df708e44e0280dfaf0f8e457b154781bb5140",
-    "klasa": "git+https://github.com/dirigeants/klasa.git#master",
+    "klasa": "github:dirigeants/klasa.git#4fa20eb767a216ef2e938f1f8d65b33c88d2c913",
     "youtube-node": "^1.3.3",
     "urllib": "^2.34.1",
     "google-images": "^2.1.0",
