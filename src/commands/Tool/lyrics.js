@@ -24,7 +24,7 @@ module.exports = class extends Command {
    }
    async run(msg, [song, artist]) {
       const options = {
-         apiKey: process.env.GENIUS_API_TOKEN,
+         apiKey: process.env.GENIUS_API_KEY,
          title: song,
          artist: artist,
          optimiseQuery: true
