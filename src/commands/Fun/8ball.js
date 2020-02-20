@@ -131,7 +131,6 @@ module.exports = class extends Command {
    async run(message, [...question]) {
       let answer = '';
       question = question.join(' ');
-      message.channel.send(question);
       if(question.match(/what/gi)) {
          if(question.match(/ (did||was||done) /gi)) answer = new WHAT('do', 'past');
          else if(question.match(/ (do||will||should||can||must||may||would||could) /gi)) answer = new WHAT('do', 'present');
