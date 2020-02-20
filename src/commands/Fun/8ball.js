@@ -133,8 +133,8 @@ module.exports = class extends Command {
       question = question.join(' ');
       message.channel.send(question);
       if(question.match(/what/gi)) {
-         if(question.match(/ (did||should||could||would||was) /gi)) answer = new WHAT('do', 'past');
-         else if(question.match(/ (do||will||should||will||can||must||may) /gi)) answer = new WHAT('do', 'present');
+         if(question.match(/ (did||was||done) /gi)) answer = new WHAT('do', 'past');
+         else if(question.match(/ (do||will||should||can||must||may||would||could) /gi)) answer = new WHAT('do', 'present');
          else if(question.match(/ (is||are||am) /gi)) answer = new WHAT('is', '');
       }
       else if(question.match(/how/gi)) {
