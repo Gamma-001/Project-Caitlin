@@ -1,6 +1,6 @@
 const { Command } = require('klasa');
 const GoogleImages = require('google-images')
-const client = new GoogleImages(process.env.CSE_ID, process.env.GOOGLE_API_KEY);
+const client = new GoogleImages('008358596554463915109:bwuhoobnvli', 'AIzaSyC1rFFJPyti06A1dLXH8LsABgLPk_qIgto');
 
 module.exports = class extends Command {
    constructor(...args) {
@@ -14,7 +14,7 @@ module.exports = class extends Command {
    }
    async run(msg, [...args])  {
       let image = msg.content.split(' ').slice(1).join(' ');
-      return client.search(image).then(results => {
+      return client.search(image, {safe: 'active'}).then(results => {
          const Embed = {
             image: {
                url: results[0].url

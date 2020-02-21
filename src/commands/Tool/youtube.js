@@ -2,7 +2,7 @@ const { Command } = require('klasa');
 const YouTube = require('youtube-node');
 let youtube = new YouTube();
 
-youtube.setKey(process.env.GOOGLE_API_KEY);
+youtube.setKey('AIzaSyC1rFFJPyti06A1dLXH8LsABgLPk_qIgto');
 
 const entity = {
    '&apos;':'\'',
@@ -37,7 +37,7 @@ module.exports = class extends Command {
       });
    }
    async run(msg, [video]) {
-      youtube.search(video, 10, (err, results) => {
+      youtube.search(video, 10, {type: 'video', safeSearch: 'strict'}, (err, results) => {
          if(err) {
             console.log(err);
             msg.channel.send('An error occured!');
