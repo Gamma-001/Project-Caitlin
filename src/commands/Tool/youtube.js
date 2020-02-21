@@ -2,7 +2,7 @@ const { Command } = require('klasa');
 const YouTube = require('youtube-node');
 let youtube = new YouTube();
 
-youtube.setKey('AIzaSyC1rFFJPyti06A1dLXH8LsABgLPk_qIgto');
+youtube.setKey(process.env.GOOGLE_API_KEY);
 
 const entity = {
    '&apos;':'\'',
