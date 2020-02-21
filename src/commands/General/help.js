@@ -36,7 +36,6 @@ module.exports = class extends Command {
 		}
       let Commands = await this.constructHelpMessage();
       let categories = Object.keys(Commands);
-      categories.splice(categories.indexOf('System'), 1);
       categories.splice(categories.indexOf('Admin'), 1);
       let general = categories.indexOf('General');
       let temp = categories[general];
