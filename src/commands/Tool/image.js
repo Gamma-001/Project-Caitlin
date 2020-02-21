@@ -1,6 +1,6 @@
 const { Command } = require('klasa');
 const GoogleImages = require('google-images')
-const client = new GoogleImages('008358596554463915109:bwuhoobnvli', 'AIzaSyC1rFFJPyti06A1dLXH8LsABgLPk_qIgto');
+const client = new GoogleImages(CSE_ID, GOOGLE_API_KEY);
 
 module.exports = class extends Command {
    constructor(...args) {
