@@ -1,5 +1,4 @@
 const { Command } = require('klasa');
-const { MessageAttachment } = require('discord.js');
 
 module.exports = class extends Command {
    constructor(...args) {
@@ -8,18 +7,30 @@ module.exports = class extends Command {
          enabled: true,
          runIn: ['text', 'group'],
          description: 'dance with someone',
-         cooldown: 10
+         cooldown: 5
       });
    }
-   async run(msg, [...args]) {
-      let usr = msg.author;
-      if(msg.mentions.users.first() && (msg.mentions.users.first().id||0) !== msg.author.id) {
-         usr = msg.mentions.users.first();
-         let att = new MessageAttachment('./src/gifs/Dances/dance_couple'+Math.ceil(Math.random()*5)+'.gif');
-         return msg.channel.send(`${msg.author} is dancing with ${usr}`, att);
-      } else {
-         let att = new MessageAttachment('./src/gifs/Dances/dance_alone'+Math.ceil(Math.random()*5)+'.gif');
-         return msg.channel.send(`${msg.author} is dancing all alone, someone wanna join?`, att);
+   async run(message, [...args]) {
+      let usr = message.author;
+      const dir = 'https://github.com/Gamma-001/Project-Caitlin/blob/master/src/gifs/Dances';
+      const dance = {
+         color: 0xff1493,
+         image: {},
+         footer: {
+            text: 'Run again for a different GIF'
+         }
       }
+      if(message.mentions.users.first() && (message.mentions.users.first().id||0) !== message.author.id) {
+         usr = message.mentions.users.first();
+         let index = Math.ceil(Math.random()*5);
+         dance.image.url = `${dir}/dance_couple${index}.gif?raw=true`;
+         if(usr.id === this.client.user.id) dance.description = `OwO **${message.author.username}** dancing with me 😳`;
+         else dance.description = `**${message.author.username}** is dancing with **${usr.username}**`;
+      } else {
+         let index = Math.ceil(Math.random()*5);
+         dance.image.url = `${dir}/dance_alone${index}.gif?raw=true`;
+         dance.description = `**${message.author.username}** is dancing all alone`;
+      }
+      return message.channel.send({embed: dance});
    }
 };
