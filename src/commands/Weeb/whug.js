@@ -24,9 +24,8 @@ module.exports = class extends Command {
       }
       const user = message.mentions.users.first();
       if(user && (user.id !== message.author.id)) {
-         let usr = message.mentions.users.first();
-         if(usr.id === this.client.user.id) hug.description = `Aww, thanks for the hug ${message.author}`;
-         else hug.description = `**${usr.username}**, you have been hugged by **${message.author.username}**`;
+         if(user.id === this.client.user.id) hug.description = `Aww, thanks for the hug ${message.author}`;
+         else hug.description = `**${user.username}**, you have been hugged by **${message.author.username}**`;
       }
       else if(user && (user.id === message.author.id))
          hug.description = `Here is a nice hug for you **${message.author.username}**`;

@@ -132,20 +132,20 @@ module.exports = class extends Command {
       let answer = '';
       question = question.join(' ');
       if(question.match(/what/gi)) {
-         if(question.match(/ (did||was||done) /gi)) answer = new WHAT('do', 'past');
-         else if(question.match(/ (do||will||should||can||must||may||would||could) /gi)) answer = new WHAT('do', 'present');
-         else if(question.match(/ (is||are||am) /gi)) answer = new WHAT('is', '');
+         if(question.match(/ (did|was|done) /gi)) answer = new WHAT('do', 'past');
+         else if(question.match(/ (do|will|should|can|must|may|would|could) /gi)) answer = new WHAT('do', 'present');
+         else if(question.match(/ (is|are|am) /gi)) answer = new WHAT('is', '');
       }
       else if(question.match(/how/gi)) {
          if(question.match(/ many[^a-zA-Z]*/gi)) answer = new HOW('many');
          else if(question.match(/ much[^a-zA-Z]*/gi)) answer = new HOW('much');
-         else if(question.match(/ (was||is||am||are) /gi)) answer = new HOW('is');
-         else if(question.match(/ (do||did||should||will||can||must||may||could||would) /gi)) answer = new HOW('do');
+         else if(question.match(/ (was|is|am|are) /gi)) answer = new HOW('is');
+         else if(question.match(/ (do|did|should|will|can|must|may|could|would) /gi)) answer = new HOW('do');
       }
       else if(question.match(/why/gi)) 
          answer = new WHY();
       else if(question.match(/when/gi)) {
-         if(question.match(/[( did )( was )]/gi)) answer = new WHEN('past');
+         if(question.match(/ (did|was|had) /gi)) answer = new WHEN('past');
          else answer = new WHEN('future');
       }
       else if(question.match(/where/gi))
