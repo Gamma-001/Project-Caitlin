@@ -1,70 +1,55 @@
 const { Command } = require('klasa');
-
-const FLAGS = [
-   'ADMINISTRATOR',
-   'CREATE_INSTANT_INVITE',
-   'KICK_MEMBERS',
-   'BAN_MEMBERS',
-   'MANAGE_CHANNELS',
-   'MANAGE_GUILD',
-   'ADD_REACTIONS',
-   'VIEW_AUDIT_LOG',
-   'PRIORITY_SPEAKER',
-   'STREAM',
-   'VIEW_CHANNEL',
-   'SEND_MESSAGES',
-   'SEND_TTS_MESSAGES',
-   'MANAGE_MESSAGES',
-   'EMBED_LINKS',
-   'ATTACH_FILES',
-   'READ_MESSAGE_HISTORY',
-   'MENTION_EVERYONE',
-   'USE_EXTERNAL_EMOJIS',
-   'CONNECT',
-   'SPEAK',
-   'MUTE_MEMBERS',
-   'DEAFEN_MEMBERS',
-   'MOVE_MEMBERS',
-   'USE_VAD',
-   'CHANGE_NICKNAME',
-   'MANAGE_NICKNAMES',
-   'MANAGE_ROLES',
-   'MANAGE_WEBHOOKS',
-   'MANAGE_EMOJIS'
-];
+const { fetchAvatar } = require('../../util/util.js');
+const Util = require('util');
 
 module.exports = class extends Command {
    constructor(...args) {
       super(...args, {
          enabled: true,
-         description: 'Fetch the permissions of a user in the guild',
+         description: 'Fetch the permissions of a user or role in the guild',
          runIn: ['text', 'group'],
+         usage: '[User:member|Role:role]',
          cooldown: 10
       });
    }
-   async run(msg, [...args]) {
+   async run(message, [User = message.member]) {
+      let HAS, name, avatar;
+      let user = User.user;
+      try {
+         avatar = fetchAvatar(user, 512);
+      } catch(err) {
+         avatar = '';
+      }
+      this.FLAGS = message.language.get('PERMISSION_FLAGS'); 
+      if(User.name) {
+         HAS = permission => User.permissions.has(permission);
+         name = User.name;
+      }
+      else {
+         HAS = permission => User.hasPermission(permission);
+         name = user.tag;
+      }
       let perms = '';
       let tmp = '';
-      let Member = msg.mentions.members.first()||msg.member;
-      for(let i = 0;i != FLAGS.length; i++) {
-         tmp = FLAGS[i];
+      for(let i = 0;i != this.FLAGS.length; i++) {
+         tmp = this.FLAGS[i];
          let space = '';
          for(let i = 0;i < 27-tmp.length; i++) space += ' ';
-         if(Member.hasPermission(tmp)) tmp = '☑️ '+tmp+space;
+         if(HAS(tmp)) tmp = '☑️ '+tmp+space;
          else tmp = '❌ ' + tmp + space;
          perms += tmp + '\n';
       }
       let Embed = {
-         title: `Permissions of ${Member.user.tag}`,
+         title: `Permissions of ${name}`,
          thumbnail: {
-            url: Member.avatarURL
+            url: avatar
          },
          description: perms,
          footer: {
-            text: `Requested by ${msg.author.tag}`
+            text: `Requested by ${message.author.tag}`
          }
       };
-      return msg.channel.send({embed: Embed});
+      return message.channel.send({embed: Embed});
    }
 };
 
