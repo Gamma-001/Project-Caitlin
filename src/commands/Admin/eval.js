@@ -12,7 +12,7 @@ module.exports = class extends Command {
       super(...args, {
          description: 'evaluate an arbitrary javascript code',
          aliases: ['ev'],
-         permLevel: 10
+         permissionLevel: 10
       });
    }
    async run(msg, [...args]) {
