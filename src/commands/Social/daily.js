@@ -10,7 +10,7 @@ module.exports = class extends Command {
    }
    async run(message, [...args]) {
       const pg_client = new Client({
-         connectionString: process.env.PG_TOKEN,
+         connectionString: process.env.DATABASE_URL,
          ssl: true
       });
       pg_client.connect();
