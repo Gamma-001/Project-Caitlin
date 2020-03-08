@@ -1,4 +1,3 @@
-const { Client } = require('pg');
 const { Command } = require('klasa');
 
 module.exports = class extends Command {
@@ -6,15 +5,11 @@ module.exports = class extends Command {
       super(...args, {
          description: 'Check how much credits you have',
          runIn: ['text'],
+         cooldown: 15
       });
    }
    async run(message, [...args]) {
-      const pg_client = new Client({
-         connectionString: process.env.DATABASE_URL,
-         ssl: true
-      });
-      pg_client.connect();
-      return pg_client.query(`select credits from users where userid = '${message.author.id}'`).then(res => {
+      return this.client.pg_client.query(`select credits from users where userid = '${message.author.id}'`).then(res => {
          let credits
          if(res.rows.length)
             credits = res.rows[0].credits;
@@ -23,8 +18,6 @@ module.exports = class extends Command {
          return message.channel.send(`You have a total of ${credits} credits`);
       }).catch(err => {
          console.log(err);
-      }).finally(() => {
-         pg_client.end();
-      })
+      });
    }
 };

@@ -5,7 +5,8 @@ module.exports = class extends Command {
       super(...args, {
          aliases: ['vwv'],
          description: 'Converts text to vaporwave characters',
-         usage: '<text:string>'
+         usage: '<text:string>',
+         cooldown: 5
       });
    }
    async run(message, [text]) {
