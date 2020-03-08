@@ -3,7 +3,7 @@ const { Client } = require('discord.js');
 const {Client:PG_Client} = require('pg');
 
 const pg_client = new PG_Client({
-   connectionString: process.env.DATABSE_URL,
+   connectionString: process.env.DATABASE_URL,
    ssl: true
 });
 
