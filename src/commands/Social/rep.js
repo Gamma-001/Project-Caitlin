@@ -26,7 +26,7 @@ module.exports = class extends Command {
                hours: Math.floor(diff/3600)%60
             }
             if(diff < 0 || time.days)
-               return this.client.pg_client.query(`update users set reputations = reputations + 1, last_rep = current_timestamp where userid = '${message.author.id}'`).then(res => {
+               return this.client.pg_client.query(`update users set last_rep = current_timestamp where userid = '${message.author.id}';update users set reputations = reputations+1 where userid = '${user.id}'`).then(res => {
                   return message.channel.send(`You have given a reputation point to **${user.username}**`); 
                });
             else
