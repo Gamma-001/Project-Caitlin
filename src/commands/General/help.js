@@ -45,7 +45,7 @@ module.exports = class extends Command {
       categories.forEach(command => {
          Help.fields.push({
             name: command + ' Commands',
-            value: '`'+Commands[command].join('`,`')+'`'
+            value: '`'+Commands[command].join('`, `')+'`'
          });
       });
       Help.fields[categories.length-1].value += `\n\nType **c:help <command>** for more help regarding a specific command\n`;
