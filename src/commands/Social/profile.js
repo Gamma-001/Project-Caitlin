@@ -29,11 +29,11 @@ module.exports = class extends Command {
          // nothing
       });
 
-      let i2 = loadImage('../../images/profile.png').then(image => {
+      let i2 = loadImage('./src/images/profile.png').then(image => {
          ctx.drawImage(image, 0, 0, 600, 400);
       });
 
-      let i3 = loadImage('../../images/slider.png').then(image => {
+      let i3 = loadImage('./src/images/slider.png').then(image => {
          ctx2.drawImage(image, 0, 0, 400, 10);
       });
 
