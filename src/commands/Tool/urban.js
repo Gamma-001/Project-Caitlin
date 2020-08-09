@@ -42,10 +42,9 @@ module.exports = class extends Command {
       return urllib.request('https://www.urbandictionary.com/define.php?term='+word).then(res => {
          let html = res.data.toString();
          let index = 0;
-         const content = html.match(/<[ ]*div[ ]+id+[ ]*=[ ]*('|")outer('|")[ ]*>.*<[ ]*a[ ]+class[ ]*=[ ]*("|')mug-ad("|')/gims)[0];
+         const content = html.match(/<[ ]*div[ ]+id+[ ]*=[ ]*('|")content('|")[ ]*>.*<[ ]*a[ ]+class[ ]*=[ ]*("|')mug-ad("|')/gims)[0];
          const definition = stitch(content.match(/<[ ]*div[ ]+class[ ]*=[ ]*('|")meaning('|")(.*?)<\/div>/gi)[index].match(/>(.*?)(?=<)/gi));
          const example = stitch(content.match(/<[ ]*div[ ]+class[ ]*=[ ]*('|")example('|")(.*?)<\/div>/gi)[index].match(/>(.*?)(?=<)/gi));
-         const tags = stitch(content.match(/<[ ]*div[ ]+class[ ]*=[ ]*('|")tags('|")(.*?)<\/div>/gi)[index].match(/>(.*?)(?=<)/gi));
          const contributor = content.match(/<[ ]*div[ ]+class[ ]*=[ ]*('|")contributor('|")(.*?)<\/div>/gi)[index].match(/>(.*?)(?=<)/gi)[1].replace('>','');
          const Definition = {
             color: 0xdc143c,
@@ -62,9 +61,6 @@ module.exports = class extends Command {
                {
                   name: 'Example',
                   value: '>>> '+example,
-               },{
-                  name: 'Tags',
-                  value: '`'+tags.split('#').filter(a => {return a != '';}).map(a => {return '#'+a;}).join('\` \`')+`\`\n\n> _by [${contributor}](https://www.urbandictionary.com/author.php?author=${contributor})_`,
                }
             ],
             timestamp : new Date(),
